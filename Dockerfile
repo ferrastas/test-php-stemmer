@@ -21,7 +21,11 @@ RUN docker-apt-get-install \
 
 WORKDIR /var/www/html
 
-ADD test.php .
+RUN printf '<?php  \n\n\
+echo stemword("dakpannen", "dutch", "UTF_8") . "\n" ; \n\
+assert(stemword("dakpannen", "dutch", "UTF_8") === "dakpann"); \n\
+echo stemword("balletje", "dutch", "UTF_8") . "\n" ; \n\
+assert(stemword("balletje", "dutch", "UTF_8") === "balletj"); ' > test.php
 
 ENTRYPOINT ["php"]
 
